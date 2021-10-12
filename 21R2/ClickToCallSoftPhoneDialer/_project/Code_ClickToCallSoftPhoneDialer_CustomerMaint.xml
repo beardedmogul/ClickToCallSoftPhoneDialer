@@ -1,0 +1,83 @@
+﻿<Graph ClassName="ClickToCallSoftPhoneDialer_CustomerMaint" Source="#CDATA" IsNew="True" FileType="NewFile">
+    <CDATA name="Source"><![CDATA[using PX.Common;
+using PX.Data;
+using PX.Objects.AR.DAC;
+using PX.Objects.AR;
+using PX.Objects.CR;
+using PX.Objects.Common;
+using PX.Objects;
+using PX.SM;
+using System.Collections.Generic;
+using System.Collections;
+using System;
+
+namespace ClickToCallSoftPhoneDialer
+{
+    public class ClickToCallSoftPhoneDialer_CustomerMaint_Extension : PXGraphExtension<CustomerMaint>
+    {
+        #region CallPhone1
+        public PXAction<Customer> CallPhone1;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected void callPhone1()
+        {
+            Contact contact = Customer.FK.ContactInfo.FindParent(new PXGraph(), Base.CurrentCustomer.Current);
+            if (contact == null) return;
+            string phone = contact.Phone1;
+            if(!string.IsNullOrWhiteSpace(phone)) {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPhone2
+        public PXAction<Customer> CallPhone2;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected void callPhone2()
+        {
+            Contact contact = Customer.FK.ContactInfo.FindParent(new PXGraph(), Base.CurrentCustomer.Current);
+            if (contact == null) return;
+            string phone = contact.Phone2;
+            if(!string.IsNullOrWhiteSpace(phone)) {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPrimaryContactPhone1
+        public PXAction<Customer> CallPrimaryContactPhone1;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPrimaryContactPhone1()
+        {
+            Contact contact = Customer.FK.PrimaryContact.FindParent(new PXGraph(), Base.CurrentCustomer.Current);
+            if (contact == null) return;
+            string phone = contact.Phone1;
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPrimaryContactPhone2
+        public PXAction<Customer> CallPrimaryContactPhone2;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPrimaryContactPhone2()
+        {
+            Contact contact = Customer.FK.PrimaryContact.FindParent(new PXGraph(), Base.CurrentCustomer.Current);
+            if (contact == null) return;
+            string phone = contact.Phone2;
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion  
+    }
+}]]></CDATA>
+</Graph>

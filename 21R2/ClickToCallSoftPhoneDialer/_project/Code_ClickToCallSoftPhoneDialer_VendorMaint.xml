@@ -1,0 +1,100 @@
+﻿<Graph ClassName="ClickToCallSoftPhoneDialer_VendorMaint" Source="#CDATA" IsNew="True" FileType="NewFile">
+    <CDATA name="Source"><![CDATA[using Branch = PX.SM.Branch;
+using CRLocation = PX.Objects.CR.Standalone.Location;
+using PX.Data.BQL.Fluent;
+using PX.Data.BQL;
+using PX.Data.ReferentialIntegrity.Attributes;
+using PX.Data;
+using PX.Objects.AP;
+using PX.Objects.CA;
+using PX.Objects.CM;
+using PX.Objects.CR.Extensions.CRCreateActions;
+using PX.Objects.CR.Extensions.Relational;
+using PX.Objects.CR.Extensions;
+using PX.Objects.CR;
+using PX.Objects.CS;
+using PX.Objects.Common;
+using PX.Objects.GDPR;
+using PX.Objects.GL;
+using PX.Objects.GraphExtensions.ExtendBAccount;
+using PX.Objects.IN;
+using PX.Objects.PO;
+using PX.Objects.TX;
+using PX.Objects;
+using PX.SM;
+using System.Collections.Generic;
+using System.Collections;
+using System.Globalization;
+using System.Linq;
+using System;
+
+namespace ClickToCallSoftPhoneDialer
+{
+    public class ClickToCallSoftPhoneDialer_VendorMaint_Extension : PXGraphExtension<VendorMaint>
+    {
+        #region CallPhone1
+        public PXAction<VendorR> CallPhone1;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPhone1()
+        {
+            Contact contact = Vendor.FK.ContactInfo.FindParent(new PXGraph(), Base.CurrentVendor.Current);
+            if (contact == null) return;
+            string phone = contact.Phone1;
+            if(!string.IsNullOrWhiteSpace(phone)) {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPhone2
+        public PXAction<VendorR> CallPhone2;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPhone2()
+        {
+            Contact contact = Vendor.FK.ContactInfo.FindParent(new PXGraph(), Base.CurrentVendor.Current);
+            if (contact == null) return;
+            string phone = contact.Phone2;
+            if(!string.IsNullOrWhiteSpace(phone)) {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPrimaryContactPhone1
+        public PXAction<VendorR> CallPrimaryContactPhone1;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPrimaryContactPhone1()
+        {
+            Contact contact = Vendor.FK.PrimaryContact.FindParent(new PXGraph(), Base.CurrentVendor.Current);
+            if (contact == null) return;
+            string phone = contact.Phone1;
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPrimaryContactPhone2
+        public PXAction<VendorR> CallPrimaryContactPhone2;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPrimaryContactPhone2()
+        {
+            Contact contact = Vendor.FK.PrimaryContact.FindParent(new PXGraph(), Base.CurrentVendor.Current);
+            if (contact == null) return;
+            string phone = contact.Phone2;
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion  
+    }
+}]]></CDATA>
+</Graph>

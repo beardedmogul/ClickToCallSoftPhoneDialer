@@ -1,0 +1,77 @@
+﻿<Graph ClassName="ClickToCallSoftPhoneDialer_ContactMaint" Source="#CDATA" IsNew="True" FileType="NewFile">
+    <CDATA name="Source"><![CDATA[using PX.Common;
+using PX.Data.BQL.Fluent;
+using PX.Data.BQL;
+using PX.Data.MassProcess;
+using PX.Data;
+using PX.EP;
+using PX.Objects.AR;
+using PX.Objects.CR.Extensions.CRContactAccountDataSync;
+using PX.Objects.CR.Extensions.CRCreateActions;
+using PX.Objects.CR.Extensions.CRDuplicateEntities;
+using PX.Objects.CR.Extensions.Relational;
+using PX.Objects.CR.Extensions;
+using PX.Objects.CR.MassProcess;
+using PX.Objects.CR;
+using PX.Objects.CS;
+using PX.Objects.EP;
+using PX.Objects.Extensions.ContactAddress;
+using PX.Objects.GL;
+using PX.Objects;
+using PX.SM;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System;
+
+namespace ClickToCallSoftPhoneDialer
+{
+    public class ClickToCallSoftPhoneDialer_ContactMaint_Extension : PXGraphExtension<ContactMaint>
+    {
+        #region CallPhone1
+        public PXAction<Contact> CallPhone1;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPhone1()
+        {
+            string phone = Base.ContactCurrent.Current.Phone1;
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPhone2
+        public PXAction<Contact> CallPhone2;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPhone2()
+        {
+            string phone = Base.ContactCurrent.Current.Phone2;
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+        #region CallPhone3
+        public PXAction<Contact> CallPhone3;
+        [PXButton(CommitChanges = true, PopupVisible = false, VisibleOnDataSource = false)]
+        [PXUIField(DisplayName = "Call")]
+        protected virtual void callPhone3()
+        {
+            string phone = Base.ContactCurrent.Current.Phone3;
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                string url = string.Format("tel:+1{0}", phone.Trim());
+                throw new PXRedirectToUrlException(url, PXBaseRedirectException.WindowMode.New, "");
+            }
+        }
+        #endregion
+    }
+}]]></CDATA>
+</Graph>
